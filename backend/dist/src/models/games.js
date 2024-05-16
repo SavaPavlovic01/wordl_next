@@ -10,7 +10,8 @@ exports.games = (0, pg_core_1.pgTable)('games', {
     player2_id: (0, pg_core_1.integer)('player2_id').notNull(),
     game_date: (0, pg_core_1.date)('game_date').notNull(),
     state: (0, pg_core_1.text)('state').notNull().default(''),
-    result: (0, pg_core_1.char)('result').notNull().default('0')
+    result: (0, pg_core_1.char)('result').notNull().default('0'),
+    word: (0, pg_core_1.text)('word').notNull()
 });
 exports.gameRelations = (0, drizzle_orm_1.relations)(exports.games, ({ one }) => ({
     player1: one(users_1.users, { fields: [exports.games.player1_id], references: [users_1.users.id] }),

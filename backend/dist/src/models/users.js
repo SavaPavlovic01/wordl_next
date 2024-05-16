@@ -6,8 +6,8 @@ const pg_core_1 = require("drizzle-orm/pg-core");
 const games_1 = require("./games");
 exports.users = (0, pg_core_1.pgTable)('users', {
     id: (0, pg_core_1.serial)('id').primaryKey(),
-    email: (0, pg_core_1.text)('email').notNull(),
-    password: (0, pg_core_1.integer)('password').notNull(),
+    email: (0, pg_core_1.text)('email').notNull().unique(),
+    password: (0, pg_core_1.text)('password').notNull(),
     wins: (0, pg_core_1.integer)('wins').notNull().default(0),
     losses: (0, pg_core_1.integer)('losses').notNull().default(0),
     rating: (0, pg_core_1.integer)('rating').notNull().default(1000)

@@ -8,7 +8,8 @@ export const games = pgTable('games', {
     player2_id: integer('player2_id').notNull(),
     game_date: date('game_date').notNull(),
     state: text('state').notNull().default(''),
-    result: char('result').notNull().default('0')
+    result: char('result').notNull().default('0'),
+    word:text('word').notNull()
 });
 
 export const gameRelations = relations(games, ({ one }) => ({

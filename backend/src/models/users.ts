@@ -4,8 +4,8 @@ import { games } from "./games";
 
 export const users = pgTable('users', {
     id:serial('id').primaryKey(),
-    email:text('email').notNull(),
-    password:integer('password').notNull(),
+    email:text('email').notNull().unique(),
+    password:text('password').notNull(),
     wins:integer('wins').notNull().default(0),
     losses:integer('losses').notNull().default(0),
     rating:integer('rating').notNull().default(1000)

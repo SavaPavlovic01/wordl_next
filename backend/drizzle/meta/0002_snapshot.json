@@ -1,0 +1,124 @@
+{
+  "id": "ed89e9cf-2b2e-4d96-8dd5-12fdc0803c74",
+  "prevId": "683a9276-dcf7-4bd9-9078-7967a15a26de",
+  "version": "6",
+  "dialect": "postgresql",
+  "tables": {
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "wins": {
+          "name": "wins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "losses": {
+          "name": "losses",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "rating": {
+          "name": "rating",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1000
+        },
+        "salt": {
+          "name": "salt",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.games": {
+      "name": "games",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "player1_id": {
+          "name": "player1_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "player2_id": {
+          "name": "player2_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "game_date": {
+          "name": "game_date",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "state": {
+          "name": "state",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "result": {
+          "name": "result",
+          "type": "char",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'0'"
+        },
+        "word": {
+          "name": "word",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}
