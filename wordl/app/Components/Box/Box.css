@@ -1,0 +1,14 @@
+.box{
+    border:1px solid gray;
+    width: 50px;
+    height: 50px;
+    size: 200px;
+    margin-left: 5px;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 200%;
+}
+
+.text{
+    margin: auto;
+}
