@@ -20,6 +20,10 @@ app.post('/test', (req, res) => {
   new UserController().register(req, res);
 });
 
+app.post('/login', (req, res) => {
+  new UserController().login(req, res);
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

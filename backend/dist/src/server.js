@@ -16,6 +16,9 @@ app.get('/', (req, res) => {
 app.post('/test', (req, res) => {
     new userController_1.default().register(req, res);
 });
+app.post('/login', (req, res) => {
+    new userController_1.default().login(req, res);
+});
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });

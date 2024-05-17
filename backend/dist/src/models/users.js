@@ -7,6 +7,7 @@ const games_1 = require("./games");
 exports.users = (0, pg_core_1.pgTable)('users', {
     id: (0, pg_core_1.serial)('id').primaryKey(),
     email: (0, pg_core_1.text)('email').notNull().unique(),
+    username: (0, pg_core_1.text)('username').notNull().unique(),
     password: (0, pg_core_1.text)('password').notNull(),
     wins: (0, pg_core_1.integer)('wins').notNull().default(0),
     losses: (0, pg_core_1.integer)('losses').notNull().default(0),
