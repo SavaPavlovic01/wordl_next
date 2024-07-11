@@ -8,7 +8,6 @@ import { Manager, io } from 'socket.io-client';
 
 function App() {
 
-  const manager = new Manager('http://localhost:5000')
   const socket = io('http://localhost:5000');
 
   const [curLetter, setLetter] = useState('');
@@ -66,11 +65,11 @@ function App() {
   useEffect(() => {
     
     socket.on('foundMatch', onFoundMatch)
-
+    
     return () => {
       socket.removeListener('foundMatch', onFoundMatch);
     }
-  }, [socket])
+  }, [])
 
   return (
     <>
