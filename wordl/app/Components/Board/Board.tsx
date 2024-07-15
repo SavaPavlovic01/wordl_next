@@ -13,8 +13,25 @@ function Board(props:any){
         boardRef.current = board;
     }, [board, curRow])
 
+    useEffect(()=>{
+        if(props.secondBoard){
+            props.socket.on("sendWord", (data:any)=>{
+                console.log("EO ME")
+                setBoard(board =>  board + data)
+                setCurRow(curRow => curRow + 1)
+            })
+        }
+
+        return () => {
+            props.socket.removeListener('sendWord')
+        }
+
+    }, [])
 
     useEffect(()=>{
+        if(props.secondBoard){
+            return
+        }
         if(props.curLetter == 'backspace'){
             if(boardRef.current.length == curRowRef.current * 5) return
             setBoard(boardRef.current.substring(0, boardRef.current.length - 1));

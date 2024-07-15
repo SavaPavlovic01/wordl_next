@@ -83,11 +83,10 @@ function App() {
 
   return (
     <>
-      <Board curLetter = {curLetter} changed = {changed} word = {word} socket = {socket} id = {id.current} opponent = {oppId.current}></Board>
+      <Board secondBoard = {false} curLetter = {curLetter} changed = {changed} word = {word} socket = {socket} id = {id.current} opponent = {oppId.current}></Board>
       <button onClick={() => findMatch(id.current)}>Find Match</button>
       <button onClick={() => {console.log(socket.id)}}>Is Conntected</button>
-      
-      
+      <Board secondBoard = {true} socket = {socket} word = {word}></Board>
     </>
   )
 }
