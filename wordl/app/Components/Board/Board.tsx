@@ -20,7 +20,13 @@ function Board(props:any){
             setBoard(boardRef.current.substring(0, boardRef.current.length - 1));
         } else if (props.curLetter == 'enter'){
             if(boardRef.current.length != (curRowRef.current + 1) * 5) return
+            
+            props.socket.emit('sendWord', {id:props.id, 
+                word:board.substring(5 * curRowRef.current, 5 * curRowRef.current + 5),
+                opponent:props.opponent}
+            )
             setCurRow(curRow => curRow + 1);
+            
         } else {
             if(boardRef.current.length == (curRowRef.current + 1) * 5 || curRowRef.current == 6) return
             setBoard(board => board + props.curLetter)

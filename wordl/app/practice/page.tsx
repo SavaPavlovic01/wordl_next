@@ -4,16 +4,18 @@ import { useEffect, useRef, useState} from 'react'
 import './App.css'
 import Board from '../Components/Board/Board';
 import { Manager, io } from 'socket.io-client';
-
+import { v4 as uuid} from 'uuid'
 
 function App() {
 
   const socket = io('http://localhost:5000');
 
+  
   const [curLetter, setLetter] = useState('');
   const [changed, setChanged] = useState(false);
   const [msg, setMsg] = useState('')
   const repeated = useRef(false)
+  const id = useRef('AAAAAAAa')
   const word:string = "AMASS";
   
   const isLetter = (letter:string) =>{
@@ -43,40 +45,49 @@ function App() {
   useEffect(()=>{
     document.addEventListener('keyup', () => {repeated.current = false})
     document.addEventListener('keydown', (e:KeyboardEvent) => updateKey(e));
-
+    if(!window.sessionStorage.getItem('id')) window.sessionStorage.setItem('id', uuid());
+    id.current = (window.sessionStorage.getItem('id') || '')
+    console.log(id.current)
     return ()=>{
       document.removeEventListener('keydown', (e:KeyboardEvent) => updateKey(e));
       document.removeEventListener('keyup', () => {repeated.current = false})
     }
   }, [])
 
-  const findMatch = (id:number) => {
+  const findMatch = (id:string|null) => {
     socket.emit('findMatch', {id:id, rating:3000});
   }
 
-  const [oppId, setOppId] = useState(-1)
+  const oppId = useRef('aaaaa');
 
   const onFoundMatch = (data:any) => {
     console.log('Found match!');
-    setOppId(data.oppId)
+    oppId.current = data
+    console.log('Opponent')
+    console.log(oppId.current)
+  }
+
+  const receiveWord = (data:any) =>{
     console.log(data)
   }
 
   useEffect(() => {
     
     socket.on('foundMatch', onFoundMatch)
-    
+    socket.on('sendWord', receiveWord)
     return () => {
       socket.removeListener('foundMatch', onFoundMatch);
+      socket.removeListener('sendWord', receiveWord);
     }
   }, [])
 
   return (
     <>
-      <Board curLetter = {curLetter} changed = {changed} word = {word}></Board>
-      <button onClick={() => findMatch(1)}>Find Match</button>
+      <Board curLetter = {curLetter} changed = {changed} word = {word} socket = {socket} id = {id.current} opponent = {oppId.current}></Board>
+      <button onClick={() => findMatch(id.current)}>Find Match</button>
       <button onClick={() => {console.log(socket.id)}}>Is Conntected</button>
-      {oppId}
+      
+      
     </>
   )
 }
