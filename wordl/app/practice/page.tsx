@@ -17,6 +17,21 @@ function App() {
   const repeated = useRef(false)
   const id = useRef('AAAAAAAa')
   const word:string = "AMASS";
+
+  const [firstBoardData, setFirstBoard] = useState('')
+  const [secondBoardData, setSecondBoard] = useState('')
+
+  const updateFirstBoardData = (data:any) => {
+    if(data == '9'){
+      setFirstBoard(firstBoardData.substring(0, firstBoardData.length - 1))
+      return
+    }
+    setFirstBoard(firstBoardData => firstBoardData + data)
+  }
+
+  const updateSecondBoardData = (data:any) => {
+    setSecondBoard(secondBoardData => secondBoardData + data)
+  }
   
   const isLetter = (letter:string) =>{
     if(letter.length > 1) return false
@@ -83,10 +98,17 @@ function App() {
 
   return (
     <>
-      <Board secondBoard = {false} curLetter = {curLetter} changed = {changed} word = {word} socket = {socket} id = {id.current} opponent = {oppId.current}></Board>
+      <div style={{display:'flex',justifyContent:'center'}}>
+        <div style={{paddingRight:'10%'}}>
+          <Board oppBoard = {secondBoardData} sendBack = {updateFirstBoardData} secondBoard = {false} curLetter = {curLetter} changed = {changed} word = {word} socket = {socket} id = {id.current} opponent = {oppId.current}></Board>
+        </div>
+        <div>
+          <Board oppBoard = {firstBoardData} sendBack = {updateSecondBoardData} secondBoard = {true} socket = {socket} word = {word}></Board>
+        </div>
+        
+      </div>
       <button onClick={() => findMatch(id.current)}>Find Match</button>
-      <button onClick={() => {console.log(socket.id)}}>Is Conntected</button>
-      <Board secondBoard = {true} socket = {socket} word = {word}></Board>
+      
     </>
   )
 }
