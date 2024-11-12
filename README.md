@@ -1,7 +1,7 @@
-## Wordl Vs
+# Wordl Vs
 1v1 multiplayer wordl game </br>
 Made using React on the frontend, and node on the backend <br/>
-# Building
+## Building
 Frontend<br/>
 ```
 npm i
